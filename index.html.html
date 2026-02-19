@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Breno Donadio — Pesquisa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #111010;
+  --parchment: #F7F3ED;
+  --dust: #EAE4DA;
+  --terracotta: #B86B4A;
+  --terracotta-d: #9A5538;
+  --brass: #C4A265;
+  --stone: #9A9189;
+  --mist: #D8D2C8;
+  --white: #FDFAF6;
+  --green: #4A7A5A;
+  --red: #8A3A3A;
+  --amber: #A87830;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Jost',sans-serif;background:var(--ink);color:var(--ink);font-size:14px}
+
+/* ─── SCREENS ─── */
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;background:var(--parchment)}
+.screen.active{display:flex}
+.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+
+/* ─── HOME ─── */
+#s-home{
+  background:var(--ink);
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+#s-home::before{
+  content:'';position:absolute;
+  width:420px;height:420px;border-radius:50%;
+  border:1px solid rgba(196,162,101,0.15);
+  top:-140px;right:-140px;pointer-events:none;
+}
+#s-home::after{
+  content:'';position:absolute;
+  width:280px;height:280px;border-radius:50%;
+  border:1px solid rgba(184,107,74,0.12);
+  bottom:-60px;left:-80px;pointer-events:none;
+}
+.home-inner{padding:40px 28px;display:flex;flex-direction:column;align-items:center;z-index:1}
+.brand-mark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:11px;letter-spacing:8px;
+  color:var(--brass);text-transform:uppercase;
+  margin-bottom:20px;
+}
+.brand-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;font-weight:300;
+  color:var(--white);line-height:1;
+  text-align:center;letter-spacing:2px;
+}
+.brand-name em{font-style:italic;color:var(--brass)}
+.home-line{width:40px;height:1px;background:var(--terracotta);margin:24px auto}
+.home-desc{
+  color:rgba(253,250,246,0.45);font-size:13px;
+  text-align:center;line-height:1.8;
+  max-width:280px;margin-bottom:48px;
+  font-weight:300;
+}
+.home-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px}
+.btn-terra{
+  background:var(--terracotta);color:var(--white);
+  border:none;border-radius:1px;
+  padding:16px 24px;
+  font-family:'Jost',sans-serif;font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;transition:background .2s;
+}
+.btn-terra:active{background:var(--terracotta-d)}
+.btn-ghost{
+  background:transparent;color:rgba(253,250,246,0.5);
+  border:1px solid rgba(253,250,246,0.15);border-radius:1px;
+  padding:14px 24px;
+  font-family:'Jost',sans-serif;font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-ghost:active{border-color:var(--brass);color:var(--brass)}
+.survey-dates{
+  margin-top:32px;
+  border:1px solid rgba(196,162,101,0.2);
+  border-radius:2px;padding:14px 20px;
+  text-align:center;width:100%;max-width:300px;
+}
+.survey-dates .dates-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--brass);margin-bottom:6px}
+.survey-dates .dates-val{font-size:13px;color:rgba(253,250,246,0.6);font-weight:300}
+
+/* ─── GENERIC HEADER ─── */
+.pg-header{
+  background:var(--ink);
+  padding:52px 20px 20px;
+  position:relative;flex-shrink:0;
+}
+.pg-header h2{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--white);font-size:26px;font-weight:500;
+}
+.pg-header p{color:var(--stone);font-size:11px;letter-spacing:1px;margin-top:4px}
+.back-btn{
+  position:absolute;top:16px;left:16px;
+  background:none;border:none;color:var(--stone);
+  font-size:20px;cursor:pointer;padding:4px 8px;
+  font-family:'Jost',sans-serif;
+}
+
+/* ─── LGPD SCREEN ─── */
+#s-lgpd .scroll-area{padding:28px 20px}
+.lgpd-box{
+  background:var(--white);border:1px solid var(--mist);
+  border-radius:2px;padding:20px;margin-bottom:20px;
+}
+.lgpd-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;color:var(--ink);margin-bottom:12px;
+}
+.lgpd-text{font-size:12px;color:var(--stone);line-height:1.8;font-weight:300}
+.lgpd-text strong{color:var(--ink);font-weight:500}
+.checkbox-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.custom-cb{
+  width:20px;height:20px;border:1px solid var(--mist);
+  background:var(--white);border-radius:1px;
+  flex-shrink:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;transition:all .15s;
+}
+.custom-cb.checked{background:var(--terracotta);border-color:var(--terracotta);color:var(--white)}
+.cb-label{font-size:12px;color:var(--stone);line-height:1.6;cursor:pointer}
+
+/* ─── SETUP ─── */
+#s-setup .scroll-area{padding:24px 20px}
+.field-group{margin-bottom:20px}
+.field-label{
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--stone);margin-bottom:8px;display:block;
+}
+.field-input,.field-select{
+  width:100%;border:none;border-bottom:1px solid var(--mist);
+  background:transparent;padding:10px 0;
+  font-family:'Jost',sans-serif;font-size:15px;
+  color:var(--ink);outline:none;
+  transition:border-color .2s;border-radius:0;
+  -webkit-appearance:none;
+}
+.field-input::placeholder{color:var(--mist)}
+.field-input:focus,.field-select:focus{border-color:var(--terracotta)}
+.section-sep{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--brass);margin:28px 0 16px;
+  padding-bottom:8px;border-bottom:1px solid var(--dust);
+}
+.bottom-btn{padding:16px 20px;background:var(--parchment);border-top:1px solid var(--dust);flex-shrink:0}
+
+/* ─── CATALOG ─── */
+#s-catalog .pg-header{padding-bottom:14px}
+.progress-wrap{padding:12px 20px 0;flex-shrink:0}
+.prog-bar{height:2px;background:var(--dust);border-radius:1px;overflow:hidden}
+.prog-fill{height:100%;background:var(--terracotta);transition:width .4s ease;border-radius:1px}
+.prog-meta{display:flex;justify-content:space-between;margin-top:6px;margin-bottom:0}
+.prog-meta span{font-size:10px;letter-spacing:1px;color:var(--stone);text-transform:uppercase}
+
+.product-card{background:var(--white);margin:12px 12px 0;border-radius:2px;overflow:hidden}
+.prod-visual{
+  width:100%;
+  height:calc(55vw + 40px);
+  min-height:280px;
+  max-height:420px;
+  background:linear-gradient(160deg,#ede6db 0%,#d9cfbf 60%,#cec3b0 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.prod-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.35) 0%,transparent 70%);
+  pointer-events:none;
+}
+.prod-visual::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to top,rgba(17,16,16,.08),transparent);
+  pointer-events:none;
+}
+.prod-cat-tag{
+  position:absolute;top:14px;left:14px;
+  background:var(--ink);color:var(--white);
+  font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 10px;z-index:1;
+}
+.prod-num-tag{
+  position:absolute;top:14px;right:14px;
+  color:rgba(17,16,16,.3);
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;letter-spacing:1px;z-index:1;
+}
+.prod-emoji{
+  font-size:96px;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.12));
+  transform:translateY(-8px);
+  z-index:1;
+}
+.prod-visual-footer{
+  position:absolute;bottom:14px;left:0;right:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 14px;z-index:1;
+}
+.prod-badge{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(17,16,16,.35)}
+.prod-info{padding:14px 16px 16px}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.prod-desc{font-size:12px;color:var(--stone);line-height:1.7;margin-bottom:10px;font-weight:300}
+.prod-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--terracotta);
+  margin-bottom:18px;
+}
+
+.q-block{margin-bottom:18px}
+.q-label{font-size:11px;font-weight:500;color:var(--ink);letter-spacing:.3px;margin-bottom:9px;display:block}
+.opts-row{display:flex;gap:6px;flex-wrap:wrap}
+.opt{
+  border:1px solid var(--mist);background:var(--white);
+  border-radius:1px;padding:8px 12px;
+  font-family:'Jost',sans-serif;font-size:11px;color:var(--stone);
+  cursor:pointer;transition:all .15s;
+}
+.opt.sel-yes{background:var(--green);border-color:var(--green);color:var(--white)}
+.opt.sel-no{background:var(--red);border-color:var(--red);color:var(--white)}
+.opt.sel-maybe{background:var(--amber);border-color:var(--amber);color:var(--white)}
+.opt.sel-dark{background:var(--ink);border-color:var(--ink);color:var(--white)}
+
+.price-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.price-opt{
+  border:1px solid var(--mist);background:var(--white);
+  border-radius:1px;padding:9px 4px;
+  font-family:'Jost',sans-serif;font-size:10px;color:var(--stone);
+  cursor:pointer;text-align:center;transition:all .15s;
+}
+.price-opt.sel-dark{background:var(--ink);border-color:var(--ink);color:var(--white)}
+
+.tag-cloud{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  border:1px solid var(--mist);background:var(--white);
+  border-radius:20px;padding:6px 12px;
+  font-family:'Jost',sans-serif;font-size:11px;color:var(--stone);
+  cursor:pointer;transition:all .15s;
+}
+.tag.sel{background:var(--terracotta);border-color:var(--terracotta);color:var(--white)}
+
+.size-opts{display:flex;gap:6px;flex-wrap:wrap}
+.size-opt{
+  border:1px solid var(--mist);background:var(--white);
+  border-radius:1px;padding:8px 12px;min-width:44px;text-align:center;
+  font-family:'Jost',sans-serif;font-size:11px;color:var(--stone);
+  cursor:pointer;transition:all .15s;
+}
+.size-opt.sel-dark{background:var(--ink);border-color:var(--ink);color:var(--white)}
+
+.nav-footer{
+  display:flex;gap:10px;padding:12px;
+  border-top:1px solid var(--dust);flex-shrink:0;background:var(--parchment);
+}
+.nav-prev{
+  flex:0 0 auto;padding:15px 18px;
+  border:1px solid var(--mist);background:transparent;
+  border-radius:1px;font-family:'Jost',sans-serif;font-size:12px;color:var(--stone);cursor:pointer;
+}
+.nav-next{
+  flex:1;padding:15px;background:var(--terracotta);color:var(--white);
+  border:none;border-radius:1px;
+  font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:background .2s;
+}
+.nav-next:active{background:var(--terracotta-d)}
+
+/* ─── THANKS ─── */
+#s-thanks{background:var(--ink);align-items:center;justify-content:center;padding:40px 28px;text-align:center}
+.thanks-mark{font-size:56px;margin-bottom:20px}
+.thanks-title{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:34px;font-weight:300;margin-bottom:12px}
+.thanks-sub{color:rgba(253,250,246,.45);font-size:13px;line-height:1.8;margin-bottom:40px;font-weight:300}
+.thanks-name{color:var(--brass);font-style:italic}
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:300px;
+  padding:16px;background:#25D366;color:var(--white);
+  border:none;border-radius:1px;
+  font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;margin-bottom:10px;
+}
+.wa-icon{font-size:18px}
+
+/* ─── ADMIN LOGIN ─── */
+#s-admin-login{background:var(--ink);align-items:center;justify-content:center;padding:40px 28px}
+.admin-box{width:100%;max-width:320px;text-align:center}
+.admin-logo{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:28px;margin-bottom:4px}
+.admin-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:40px}
+.pin-display{
+  display:flex;justify-content:center;gap:12px;margin-bottom:32px;
+}
+.pin-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:1px solid var(--stone);background:transparent;
+  transition:all .2s;
+}
+.pin-dot.filled{background:var(--terracotta);border-color:var(--terracotta)}
+.pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:240px;margin:0 auto 24px}
+.pin-btn{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:2px;padding:18px;color:var(--white);
+  font-family:'Jost',sans-serif;font-size:20px;font-weight:300;cursor:pointer;
+  transition:all .15s;
+}
+.pin-btn:active{background:rgba(255,255,255,.12)}
+.pin-del{background:transparent;border:none;color:var(--stone);font-size:16px;cursor:pointer;padding:18px}
+.pin-error{color:var(--terracotta);font-size:12px;margin-bottom:12px;min-height:18px}
+.pin-attempts{font-size:11px;color:var(--stone);margin-top:8px}
+
+/* ─── ADMIN PANEL ─── */
+#s-admin{background:var(--parchment)}
+.admin-header{
+  background:var(--ink);padding:52px 20px 16px;flex-shrink:0;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.admin-header h2{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:24px}
+.logout-btn{
+  background:none;border:1px solid rgba(255,255,255,.1);
+  border-radius:1px;padding:6px 12px;
+  font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1px;
+  color:var(--stone);cursor:pointer;
+}
+
+.admin-tabs{display:flex;background:var(--ink);flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
+.a-tab{
+  flex:1;padding:12px;border:none;background:transparent;
+  font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--stone);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;
+}
+.a-tab.active{color:var(--terracotta);border-bottom-color:var(--terracotta)}
+
+.tab-content{display:none;flex:1;overflow:hidden;flex-direction:column}
+.tab-content.active{display:flex}
+
+/* Admin — Configurações */
+.admin-section{padding:20px;border-bottom:1px solid var(--dust)}
+.admin-section h3{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:16px}
+.date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.save-btn{
+  width:100%;padding:14px;background:var(--terracotta);color:var(--white);
+  border:none;border-radius:1px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:16px;
+}
+.danger-btn{
+  width:100%;padding:14px;background:transparent;color:var(--red);
+  border:1px solid var(--red);border-radius:1px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:8px;
+}
+
+/* Admin — Peças */
+.product-list-item{
+  background:var(--white);margin:0 12px 8px;
+  border-radius:2px;padding:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.pli-emoji{font-size:28px;flex-shrink:0}
+.pli-info{flex:1;min-width:0}
+.pli-name{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink)}
+.pli-price{font-size:12px;color:var(--stone)}
+.pli-actions{display:flex;gap:6px;flex-shrink:0}
+.icon-btn{
+  background:var(--dust);border:none;border-radius:1px;
+  padding:8px;cursor:pointer;font-size:14px;
+}
+.icon-btn.del{background:#fde8e8}
+.add-product-btn{
+  margin:12px 12px 0;padding:14px;
+  background:var(--ink);color:var(--white);
+  border:none;border-radius:1px;
+  font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  width:calc(100% - 24px);
+}
+
+/* Admin — Resultados */
+.result-header-bar{
+  padding:16px 20px;border-bottom:1px solid var(--dust);flex-shrink:0;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+.filter-select{
+  flex:1;min-width:120px;border:1px solid var(--mist);background:var(--white);
+  border-radius:1px;padding:8px;font-family:'Jost',sans-serif;font-size:12px;color:var(--ink);outline:none;
+}
+.export-btn{
+  padding:8px 16px;background:var(--ink);color:var(--white);
+  border:none;border-radius:1px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.stat-card{background:var(--white);border-radius:2px;padding:16px;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--ink)}
+.stat-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:4px}
+.res-product{background:var(--white);margin:0 12px 10px;border-radius:2px;padding:16px}
+.res-prod-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--ink);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.interest-pill{font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+.int-hi{background:#d4ead8;color:#2a5a3a}
+.int-md{background:#faecd4;color:#7a5020}
+.int-lo{background:#f0d8d8;color:#6a2020}
+.mini-bar-row{margin-bottom:8px}
+.mbl{font-size:10px;color:var(--stone);margin-bottom:3px;display:flex;justify-content:space-between}
+.mb{height:3px;background:var(--dust);border-radius:2px;overflow:hidden}
+.mbf{height:100%;border-radius:2px;transition:width .6s ease}
+.res-section-title{padding:12px 12px 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone)}
+
+/* Admin — Respostas individuais */
+.response-item{background:var(--white);margin:0 12px 8px;border-radius:2px;padding:14px;cursor:pointer}
+.ri-header{display:flex;justify-content:space-between;align-items:flex-start}
+.ri-name{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink)}
+.ri-date{font-size:10px;color:var(--stone)}
+.ri-meta{font-size:11px;color:var(--stone);margin-top:4px}
+.ri-badge{display:inline-block;background:var(--dust);border-radius:20px;padding:2px 8px;font-size:10px;color:var(--stone);margin-right:4px;margin-top:4px}
+.del-resp-btn{background:#fde8e8;border:none;border-radius:1px;padding:6px 10px;font-size:12px;cursor:pointer;flex-shrink:0;margin-left:8px}
+
+/* ─── PHOTO UPLOAD ─── */
+.photo-upload-area{
+  width:100%;height:180px;
+  border:2px dashed var(--mist);
+  border-radius:2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:border-color .2s;
+  position:relative;overflow:hidden;
+  background:var(--parchment);
+}
+.photo-upload-area:active{border-color:var(--terracotta)}
+#photo-placeholder{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px}
+
+/* ─── MODAL ─── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:1000;display:none;align-items:flex-end;
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  background:var(--white);width:100%;
+  border-radius:4px 4px 0 0;padding:24px 20px;
+  max-height:90vh;overflow-y:auto;
+}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ink);margin-bottom:20px}
+.modal-btns{display:flex;gap:10px;margin-top:20px}
+.modal-cancel{flex:1;padding:14px;background:var(--dust);border:none;border-radius:1px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer}
+.modal-save{flex:1;padding:14px;background:var(--terracotta);color:var(--white);border:none;border-radius:1px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--ink);color:var(--white);
+  padding:12px 20px;border-radius:2px;font-size:12px;
+  transition:transform .3s ease;z-index:9999;white-space:nowrap;
+  pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ─── SHEETS SETUP ─── */
+#s-sheets{background:var(--ink)}
+#s-sheets .pg-header{background:var(--ink)}
+#s-sheets .pg-header h2{color:var(--white)}
+.sheets-body{padding:20px;color:var(--white)}
+.step-block{margin-bottom:24px}
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--terracotta);color:var(--white);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;margin-bottom:8px;
+}
+.step-title{font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--stone);line-height:1.7;font-weight:300}
+.code-block{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:2px;padding:14px;margin:10px 0;
+  font-family:monospace;font-size:11px;color:var(--brass);
+  line-height:1.6;word-break:break-all;
+}
+.url-input{
+  width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  border-radius:2px;padding:12px;
+  font-family:'Jost',sans-serif;font-size:13px;color:var(--white);
+  outline:none;margin-top:8px;
+}
+.url-input::placeholder{color:var(--stone)}
+</style>
+</head>
+<body>
+
+<!-- ═══ HOME ═══ -->
+<div id="s-home" class="screen active">
+  <div class="home-inner">
+    <div class="brand-mark">Pesquisa de Moda</div>
+    <div class="brand-name">BRENO<br><em>Donadio</em></div>
+    <div class="home-line"></div>
+    <p class="home-desc">Participe da nossa pesquisa e ajude a criar coleções que combinam com o seu estilo.</p>
+    <div class="survey-dates" id="home-dates">
+      <div class="dates-label">Período da Pesquisa</div>
+      <div class="dates-val" id="home-dates-val">—</div>
+    </div>
+    <div style="height:20px"></div>
+    <div class="home-btns">
+      <button class="btn-terra" onclick="go('s-lgpd')">Participar da Pesquisa</button>
+      <button class="btn-ghost" onclick="go('s-admin-login')">Área Administrativa</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LGPD ═══ -->
+<div id="s-lgpd" class="screen">
+  <div class="pg-header">
+    <button class="back-btn" onclick="go('s-home')">←</button>
+    <h2>Privacidade &<br>Consentimento</h2>
+    <p>LGPD — Lei 13.709/2018</p>
+  </div>
+  <div class="scroll-area" style="padding:20px">
+    <div class="lgpd-box">
+      <div class="lgpd-title">Como usamos seus dados</div>
+      <p class="lgpd-text">
+        A <strong>Breno Donadio</strong> coleta suas informações exclusivamente para fins de pesquisa de mercado e melhoria de produtos.
+        <br><br>
+        <strong>Dados coletados:</strong> nome (opcional), faixa etária, profissão, estilo de vida, opiniões sobre produtos e contato (caso autorizado).
+        <br><br>
+        <strong>Seus direitos:</strong> você pode solicitar acesso, correção ou exclusão dos seus dados a qualquer momento através do e-mail <strong>privacidade@brenodonado.com.br</strong>
+        <br><br>
+        <strong>Armazenamento:</strong> dados mantidos em ambiente seguro, sem compartilhamento com terceiros.
+        <br><br>
+        <strong>Responsável:</strong> Breno Donadio — CNPJ: 00.000.000/0001-00
+      </p>
+    </div>
+    <div class="checkbox-row">
+      <div class="custom-cb" id="cb1" onclick="toggleCb('cb1')"></div>
+      <span class="cb-label" onclick="toggleCb('cb1')">Li e concordo com a Política de Privacidade e autorizo o uso dos meus dados para fins de pesquisa.</span>
+    </div>
+    <div class="checkbox-row">
+      <div class="custom-cb" id="cb2" onclick="toggleCb('cb2')"></div>
+      <span class="cb-label" onclick="toggleCb('cb2')">Entendo que minha participação é voluntária e posso encerrar a qualquer momento.</span>
+    </div>
+    <button class="btn-terra" style="width:100%;margin-top:8px" onclick="acceptLgpd()">Aceitar e Continuar →</button>
+    <button class="btn-ghost" style="width:100%;margin-top:8px;color:var(--stone);border-color:var(--mist)" onclick="go('s-home')">Não aceitar / Voltar</button>
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<!-- ═══ SETUP ═══ -->
+<div id="s-setup" class="screen">
+  <div class="pg-header">
+    <button class="back-btn" onclick="go('s-home')">←</button>
+    <h2>Sobre<br>Você</h2>
+    <p>Suas informações são protegidas</p>
+  </div>
+  <div class="scroll-area" style="padding:20px 20px 8px">
+    <div class="section-sep">Dados Pessoais</div>
+    <div class="field-group">
+      <label class="field-label">Nome Completo (opcional)</label>
+      <input type="text" class="field-input" id="r-name" placeholder="Como prefere ser chamada">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Profissão *</label>
+      <input type="text" class="field-input" id="r-job" placeholder="Ex: Professora, Empresária...">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Faixa Etária *</label>
+      <select class="field-select" id="r-age">
+        <option value="">Selecione...</option>
+        <option>18–25 anos</option><option>26–35 anos</option>
+        <option>36–45 anos</option><option>46–55 anos</option><option>56+ anos</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Cidade *</label>
+      <input type="text" class="field-input" id="r-city" placeholder="Sua cidade">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Estilo de Vida</label>
+      <select class="field-select" id="r-lifestyle">
+        <option value="">Selecione...</option>
+        <option>Conservadora / Clássica</option>
+        <option>Moderna / Contemporânea</option>
+        <option>Casual / Descolada</option>
+        <option>Elegante / Social</option>
+        <option>Variado</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Tamanho Usual de Roupa *</label>
+      <div class="size-opts" id="r-size-opts" style="padding:10px 0 4px">
+        <button class="size-opt" onclick="selectSize(this,'P')">P</button>
+        <button class="size-opt" onclick="selectSize(this,'M')">M</button>
+        <button class="size-opt" onclick="selectSize(this,'G')">G</button>
+        <button class="size-opt" onclick="selectSize(this,'GG')">GG</button>
+        <button class="size-opt" onclick="selectSize(this,'EG')">EG</button>
+        <button class="size-opt" onclick="selectSize(this,'EGG')">EGG</button>
+        <button class="size-opt" onclick="selectSize(this,'XG')">XG</button>
+        <button class="size-opt" onclick="selectSize(this,'XGG')">XGG</button>
+      </div>
+      <input type="hidden" id="r-size">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Segmento da Pesquisa</label>
+      <select class="field-select" id="r-segment">
+        <option value="">Selecione...</option>
+        <option>Professoras de Escola</option>
+        <option>Mulheres da Cidade</option>
+        <option>Outros</option>
+      </select>
+    </div>
+
+    <div class="section-sep">Contato (opcional)</div>
+    <div class="checkbox-row" style="margin-bottom:14px">
+      <div class="custom-cb" id="cb-news" onclick="toggleCb('cb-news');toggleContactFields()"></div>
+      <span class="cb-label" onclick="toggleCb('cb-news');toggleContactFields()">Quero receber novidades do catálogo Breno Donadio</span>
+    </div>
+    <div id="contact-fields" style="display:none">
+      <div class="field-group">
+        <label class="field-label">WhatsApp</label>
+        <input type="tel" class="field-input" id="r-whatsapp" placeholder="(00) 00000-0000">
+      </div>
+      <div class="field-group">
+        <label class="field-label">E-mail</label>
+        <input type="email" class="field-input" id="r-email" placeholder="seu@email.com">
+      </div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="bottom-btn">
+    <button class="btn-terra" style="width:100%" onclick="startSurvey()">Começar Pesquisa →</button>
+  </div>
+</div>
+
+<!-- ═══ CATALOG ═══ -->
+<div id="s-catalog" class="screen">
+  <div class="pg-header">
+    <button class="back-btn" onclick="go('s-setup')">←</button>
+    <h2 id="cat-title">Peça 1</h2>
+    <p>BRENO DONADIO — COLEÇÃO</p>
+  </div>
+  <div class="progress-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="prog-meta">
+      <span id="prog-left">Peça 1 de 6</span>
+      <span id="prog-right">0% concluído</span>
+    </div>
+  </div>
+  <div class="scroll-area" id="cat-scroll">
+    <div id="cat-body" style="padding-bottom:16px"></div>
+  </div>
+  <div class="nav-footer">
+    <button class="nav-prev" id="btn-prev" onclick="navigate(-1)">←</button>
+    <button class="nav-next" id="btn-next" onclick="navigate(1)">Próxima →</button>
+  </div>
+</div>
+
+<!-- ═══ THANKS ═══ -->
+<div id="s-thanks" class="screen" style="background:var(--ink);align-items:center;justify-content:center;padding:40px 28px;text-align:center">
+  <div class="thanks-mark">✦</div>
+  <h2 class="thanks-title">Muito obrigada!</h2>
+  <p class="thanks-sub">Sua opinião é essencial para a <span class="thanks-name">Breno Donadio</span>.<br>Suas respostas foram registradas com sucesso e sua privacidade está protegida.</p>
+  <button class="wa-btn" onclick="shareWhatsapp()"><span class="wa-icon">📲</span> Compartilhar no WhatsApp</button>
+  <div class="home-btns" style="max-width:300px">
+    <button class="btn-terra" onclick="newInterview()">Nova Participante</button>
+    <button class="btn-ghost" onclick="go('s-home')">Voltar ao Início</button>
+  </div>
+</div>
+
+<!-- ═══ ADMIN LOGIN ═══ -->
+<div id="s-admin-login" class="screen" style="background:var(--ink);align-items:center;justify-content:center">
+  <div class="admin-box">
+    <div class="admin-logo">Área ADM</div>
+    <div class="admin-sub">Breno Donadio</div>
+    <div class="pin-error" id="pin-error"></div>
+    <div class="pin-display" id="pin-display">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn" onclick="pinPress('0')" style="grid-column:2">0</button>
+      <button class="pin-del" onclick="pinDel()">⌫</button>
+    </div>
+    <div class="pin-attempts" id="pin-attempts"></div>
+    <button class="btn-ghost" style="width:100%;max-width:240px;margin:0 auto;display:block;margin-top:20px" onclick="go('s-home')">← Voltar</button>
+  </div>
+</div>
+
+<!-- ═══ ADMIN PANEL ═══ -->
+<div id="s-admin" class="screen">
+  <div class="admin-header">
+    <div>
+      <h2>Painel ADM</h2>
+      <p style="font-size:10px;color:var(--stone);letter-spacing:1px">BRENO DONADIO</p>
+    </div>
+    <button class="logout-btn" onclick="adminLogout()">Sair</button>
+  </div>
+  <div class="admin-tabs">
+    <button class="a-tab active" onclick="adminTab('config')">Config</button>
+    <button class="a-tab" onclick="adminTab('products')">Peças</button>
+    <button class="a-tab" onclick="adminTab('results')">Resultados</button>
+    <button class="a-tab" onclick="adminTab('responses')">Respostas</button>
+  </div>
+
+  <!-- CONFIG TAB -->
+  <div class="tab-content active scroll-area" id="tab-config" style="padding:0">
+    <div class="admin-section">
+      <h3>Período da Pesquisa</h3>
+      <div class="date-row">
+        <div class="field-group">
+          <label class="field-label">Início</label>
+          <input type="date" class="field-input" id="cfg-start">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Término</label>
+          <input type="date" class="field-input" id="cfg-end">
+        </div>
+      </div>
+      <button class="save-btn" style="margin-top:4px" onclick="saveDates()">✓ Publicar Período</button>
+    </div>
+    <div class="admin-section">
+      <h3>Senha do Administrador</h3>
+      <div class="field-group">
+        <label class="field-label">PIN Atual (4 dígitos)</label>
+        <input type="password" class="field-input" id="cfg-pin-old" placeholder="PIN atual" maxlength="4" inputmode="numeric">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Novo PIN</label>
+        <input type="password" class="field-input" id="cfg-pin-new" placeholder="Novo PIN 4 dígitos" maxlength="4" inputmode="numeric">
+      </div>
+    </div>
+    <div class="admin-section">
+      <h3>Google Sheets — Integração</h3>
+      <p style="font-size:12px;color:var(--stone);line-height:1.7;margin-bottom:12px">Cole aqui a URL do seu Google Apps Script após a configuração.</p>
+      <div class="field-group">
+        <label class="field-label">URL do Script</label>
+        <input type="text" class="field-input" id="cfg-sheets-url" placeholder="https://script.google.com/macros/s/...">
+      </div>
+      <button class="btn-terra" style="margin-top:8px" onclick="testSheetsUrl()">Testar Conexão</button>
+      <button class="btn-ghost" style="margin-top:8px;color:var(--stone);border-color:var(--mist);width:100%" onclick="go('s-sheets')">📋 Ver Instruções de Configuração</button>
+    </div>
+    <div style="padding:16px">
+      <button class="save-btn" onclick="saveConfig()">Salvar Configurações</button>
+      <button class="danger-btn" onclick="clearAllData()">⚠ Apagar Todos os Dados</button>
+    </div>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div class="tab-content scroll-area" id="tab-products" style="padding-bottom:16px">
+    <div style="padding:12px 12px 0">
+      <button class="add-product-btn" onclick="openProductModal(null)">+ Adicionar Nova Peça</button>
+    </div>
+    <div id="products-list" style="padding-top:12px"></div>
+  </div>
+
+  <!-- RESULTS TAB -->
+  <div class="tab-content" id="tab-results" style="flex-direction:column">
+    <div class="result-header-bar">
+      <select class="filter-select" id="filter-segment" onchange="renderResultsTab()">
+        <option value="">Todos os segmentos</option>
+        <option>Professoras de Escola</option>
+        <option>Mulheres da Cidade</option>
+        <option>Outros</option>
+      </select>
+      <select class="filter-select" id="filter-city" onchange="renderResultsTab()">
+        <option value="">Todas as cidades</option>
+      </select>
+      <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
+    </div>
+    <div class="scroll-area" id="results-tab-body"></div>
+  </div>
+
+  <!-- RESPONSES TAB -->
+  <div class="tab-content" id="tab-responses" style="flex-direction:column">
+    <div class="result-header-bar">
+      <input type="text" class="filter-select" id="search-resp" placeholder="Buscar por nome ou cidade..." oninput="renderResponsesTab()">
+    </div>
+    <div class="scroll-area" id="responses-tab-body"></div>
+  </div>
+</div>
+
+<!-- ═══ SHEETS SETUP GUIDE ═══ -->
+<div id="s-sheets" class="screen">
+  <div class="pg-header" style="background:var(--ink)">
+    <button class="back-btn" onclick="go('s-admin')">←</button>
+    <h2>Configurar<br>Google Sheets</h2>
+    <p>Guia passo a passo</p>
+  </div>
+  <div class="scroll-area sheets-body">
+    <div class="step-block">
+      <div class="step-num">1</div>
+      <div class="step-title">Criar a Planilha</div>
+      <p class="step-desc">Acesse <strong style="color:var(--brass)">sheets.google.com</strong> e crie uma nova planilha chamada <em>"Breno Donadio — Pesquisa"</em>. Deixe-a aberta.</p>
+    </div>
+    <div class="step-block">
+      <div class="step-num">2</div>
+      <div class="step-title">Abrir o Editor de Script</div>
+      <p class="step-desc">Na planilha, clique em <strong style="color:var(--brass)">Extensões → Apps Script</strong>. Apague todo o código existente.</p>
+    </div>
+    <div class="step-block">
+      <div class="step-num">3</div>
+      <div class="step-title">Colar o Código</div>
+      <p class="step-desc">Cole exatamente o código abaixo no editor e clique em <strong style="color:var(--brass)">Salvar</strong>:</p>
+      <div class="code-block" id="apps-script-code" onclick="copyCode()">
+// BRENO DONADIO — Google Apps Script
+// Clique aqui para copiar o código
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Cabeçalho automático
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Data','Hora','Nome','Profissão','Faixa Etária','Tamanho','Cidade',
+        'Segmento','Estilo','Novidades','WhatsApp','Email','Peça',
+        'Compraria','Preço Opinião','Pagaria R$','Ocasiões','Comentário'
+      ]);
+    }
+    
+    // Escrever dados
+    data.rows.forEach(function(row) {
+      sheet.appendRow(row);
+    });
+    
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'ok'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'error',msg:err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({status:'alive'}))
+    .setMimeType(ContentService.MimeType.JSON);
+}</div>
+    </div>
+    <div class="step-block">
+      <div class="step-num">4</div>
+      <div class="step-title">Publicar como App Web</div>
+      <p class="step-desc">Clique em <strong style="color:var(--brass)">Implantar → Nova Implantação</strong>. Selecione <em>"App da Web"</em>. Em <em>"Executar como"</em> escolha <strong>Eu (seu e-mail)</strong>. Em <em>"Quem tem acesso"</em> escolha <strong>Qualquer pessoa</strong>. Clique em <strong>Implantar</strong> e copie a URL gerada.</p>
+    </div>
+    <div class="step-block">
+      <div class="step-num">5</div>
+      <div class="step-title">Colar a URL no App</div>
+      <p class="step-desc">Volte ao painel ADM → Config e cole a URL na área <em>"Google Sheets — Integração"</em>.</p>
+      <input type="text" class="url-input" placeholder="Cole sua URL aqui para testar..." id="test-url-field">
+      <button class="btn-terra" style="width:100%;margin-top:10px" onclick="saveUrlFromGuide()">Salvar e Voltar</button>
+    </div>
+    <div style="height:30px"></div>
+  </div>
+</div>
+
+<!-- ═══ MODAL PRODUTO ═══ -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title">Nova Peça</div>
+    <input type="hidden" id="modal-pid">
+
+    <!-- Photo upload area -->
+    <div class="field-group">
+      <label class="field-label">Foto da Peça</label>
+      <div class="photo-upload-area" id="photo-upload-area" onclick="document.getElementById('m-photo-input').click()">
+        <img id="photo-preview" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:2px;">
+        <div id="photo-placeholder">
+          <div style="font-size:32px;margin-bottom:8px">📷</div>
+          <div style="font-size:12px;color:var(--stone)">Toque para adicionar foto</div>
+          <div style="font-size:10px;color:var(--mist);margin-top:4px">JPG ou PNG</div>
+        </div>
+        <div id="photo-change-btn" style="display:none;position:absolute;bottom:8px;right:8px;background:var(--ink);color:var(--white);font-size:10px;padding:4px 8px;border-radius:1px;letter-spacing:1px">TROCAR</div>
+      </div>
+      <input type="file" id="m-photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(this)">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Nome da Peça *</label>
+      <input type="text" class="field-input" id="m-name" placeholder="Ex: Vestido Magnólia">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Categoria</label>
+      <select class="field-select" id="m-category">
+        <option>Vestidos</option><option>Conjuntos</option><option>Blusas</option>
+        <option>Saias</option><option>Calças</option><option>Casacos</option><option>Acessórios</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Emoji (fallback se não tiver foto)</label>
+      <input type="text" class="field-input" id="m-emoji" placeholder="👗">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Descrição</label>
+      <input type="text" class="field-input" id="m-desc" placeholder="Descrição breve da peça">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Preço (R$)</label>
+      <input type="number" class="field-input" id="m-price" placeholder="680">
+    </div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeProductModal()">Cancelar</button>
+      <button class="modal-save" onclick="saveProduct()">Salvar Peça</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+//  CONSTANTS
+// ══════════════════════════════════════════════
+const EVENTS = ['Trabalho/Escola','Reunião','Jantar','Casamento','Festa','Viagem','Final de semana','Teatro','Evento formal','Casual'];
+const SIZES = ['P','M','G','GG','EG','EGG','XG','XGG'];
+const DEFAULT_PIN = '1234';
+
+// ══════════════════════════════════════════════
+//  STATE (localStorage)
+// ══════════════════════════════════════════════
+function load(k, def) { try { return JSON.parse(localStorage.getItem('bd_'+k)) ?? def; } catch { return def; } }
+function save(k, v) { localStorage.setItem('bd_'+k, JSON.stringify(v)); }
+
+let CATALOG = load('catalog', [
+  { id:'p1', name:'Vestido Magnólia', category:'Vestidos', emoji:'👗', desc:'Vestido midi em crepe italiano com decote V e mangas fluidas. Corte elegante e atemporal.', price:680 },
+  { id:'p2', name:'Conjunto Amarílis', category:'Conjuntos', emoji:'✨', desc:'Conjunto calça pantalona + blazer estruturado em tecido texturizado.', price:890 },
+  { id:'p3', name:'Blusa Orquídea', category:'Blusas', emoji:'🌸', desc:'Blusa em seda lavada com bordado floral artesanal.', price:420 },
+  { id:'p4', name:'Saia Íris', category:'Saias', emoji:'🌿', desc:'Saia lápis midi com fenda lateral em tecido jacquard.', price:380 },
+  { id:'p5', name:'Vestido Camélia', category:'Vestidos', emoji:'🌺', desc:'Vestido festa em renda francesa com forro em cetim.', price:1250 },
+  { id:'p6', name:'Trench Dália', category:'Casacos', emoji:'🍂', desc:'Trench coat em gabardine italiano. Transição perfeita entre casual e formal.', price:1100 }
+]);
+
+let CONFIG = load('config', { start:'', end:'', pin: DEFAULT_PIN, sheetsUrl:'' });
+let RESPONSES = load('responses', []);
+let sessionMeta = {};
+let answers = {};
+let currentIdx = 0;
+
+// ══════════════════════════════════════════════
+//  SCREENS
+// ══════════════════════════════════════════════
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's-home') updateHomeDates();
+  if (id === 's-admin') { renderProductsList(); renderResultsTab(); renderResponsesTab(); loadAdminConfig(); }
+}
+
+function updateHomeDates() {
+  const el = document.getElementById('home-dates-val');
+  if (CONFIG.start && CONFIG.end) {
+    el.textContent = formatDate(CONFIG.start) + ' – ' + formatDate(CONFIG.end);
+  } else {
+    el.textContent = 'Em breve';
+  }
+}
+function formatDate(d) {
+  if (!d) return '';
+  const [y,m,day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+// ══════════════════════════════════════════════
+//  LGPD
+// ══════════════════════════════════════════════
+function toggleCb(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('checked');
+  if (el.classList.contains('checked')) el.textContent = '✓';
+  else el.textContent = '';
+}
+function acceptLgpd() {
+  const c1 = document.getElementById('cb1').classList.contains('checked');
+  const c2 = document.getElementById('cb2').classList.contains('checked');
+  if (!c1 || !c2) { showToast('Por favor, marque os dois itens para continuar'); return; }
+  go('s-setup');
+}
+function toggleContactFields() {
+  const show = document.getElementById('cb-news').classList.contains('checked');
+  document.getElementById('contact-fields').style.display = show ? 'block' : 'none';
+}
+
+function selectSize(btn, val) {
+  document.querySelectorAll('#r-size-opts .size-opt').forEach(b => b.classList.remove('sel-dark'));
+  btn.classList.add('sel-dark');
+  document.getElementById('r-size').value = val;
+}
+
+// ══════════════════════════════════════════════
+//  SETUP
+// ══════════════════════════════════════════════
+function startSurvey() {
+  const job = document.getElementById('r-job').value.trim();
+  const age = document.getElementById('r-age').value;
+  const city = document.getElementById('r-city').value.trim();
+  const size = document.getElementById('r-size').value;
+  if (!job || !age || !city) { showToast('Preencha profissão, idade e cidade'); return; }
+
+  const wantsNews = document.getElementById('cb-news').classList.contains('checked');
+  sessionMeta = {
+    name: document.getElementById('r-name').value.trim() || 'Anônima',
+    job, age, city, size,
+    segment: document.getElementById('r-segment').value || '—',
+    lifestyle: document.getElementById('r-lifestyle').value || '—',
+    wantsNews: wantsNews ? 'Sim' : 'Não',
+    whatsapp: wantsNews ? document.getElementById('r-whatsapp').value.trim() : '',
+    email: wantsNews ? document.getElementById('r-email').value.trim() : '',
+    date: new Date().toLocaleDateString('pt-BR'),
+    time: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}),
+    ts: Date.now()
+  };
+  answers = {};
+  currentIdx = 0;
+  go('s-catalog');
+  renderProduct();
+}
+
+// ══════════════════════════════════════════════
+//  CATALOG
+// ══════════════════════════════════════════════
+function renderProduct() {
+  const p = CATALOG[currentIdx];
+  const pct = Math.round(currentIdx / CATALOG.length * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-left').textContent = `Peça ${currentIdx+1} de ${CATALOG.length}`;
+  document.getElementById('prog-right').textContent = pct + '% concluído';
+  document.getElementById('cat-title').textContent = p.name;
+  document.getElementById('btn-prev').style.display = currentIdx === 0 ? 'none' : '';
+  document.getElementById('btn-next').textContent = currentIdx === CATALOG.length-1 ? 'Finalizar ✓' : 'Próxima →';
+
+  const prev = answers[p.id] || {};
+
+  const buyOpts = [
+    {label:'Sim, com certeza', cls:'sel-yes'},
+    {label:'Talvez', cls:'sel-maybe'},
+    {label:'Não compraria', cls:'sel-no'}
+  ];
+  const priceOpts = ['Barato','Justo','Caro','Muito caro'];
+
+  document.getElementById('cat-body').innerHTML = `
+    <div class="product-card">
+      <div class="prod-visual" style="${p.photo ? `background:url('${p.photo}') center/cover no-repeat` : ''}">
+        <div class="prod-cat-tag">${p.category}</div>
+        <div class="prod-num-tag">${currentIdx+1} / ${CATALOG.length}</div>
+        ${p.photo ? '' : `<div class="prod-emoji">${p.emoji}</div>`}
+        <div class="prod-visual-footer">
+          <div class="prod-badge" style="${p.photo?'color:rgba(255,255,255,.7)':''}">Breno Donadio</div>
+        </div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-desc">${p.desc}</div>
+        <div class="prod-price">R$ ${p.price.toLocaleString('pt-BR')},00</div>
+
+        <div class="q-block">
+          <span class="q-label">1. Compraria esta peça?</span>
+          <div class="opts-row">
+            ${buyOpts.map(o => `<button class="opt ${prev.buy===o.label?o.cls:''}" 
+              onclick="setAns('${p.id}','buy','${o.label}',this,'${o.cls}','opts-row')">${o.label}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-label">2. Como avalia o preço?</span>
+          <div class="price-opts">
+            ${priceOpts.map(o => `<button class="price-opt ${prev.priceOp===o?'sel-dark':''}"
+              onclick="setPriceOp('${p.id}','${o}',this)">${o}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="q-block" id="wtp-block-${p.id}" style="display:${['Caro','Muito caro'].includes(prev.priceOp)?'block':'none'}">
+          <span class="q-label">3. Quanto você pagaria por esta peça?</span>
+          <input type="number" class="field-input" id="wtp-${p.id}" placeholder="R$ 0"
+            value="${prev.wtp||''}" oninput="saveField('${p.id}','wtp',this.value)" inputmode="numeric">
+        </div>
+
+        <div class="q-block">
+          <span class="q-label">4. Em qual ocasião usaria? (pode marcar vários)</span>
+          <div class="tag-cloud">
+            ${EVENTS.map(ev => `<button class="tag ${prev.events&&prev.events.includes(ev)?'sel':''}"
+              onclick="toggleTag('${p.id}','${ev}',this)">${ev}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="q-block">
+          <span class="q-label">5. Comentário (opcional)</span>
+          <input type="text" class="field-input" id="cmt-${p.id}" placeholder="Sua observação..."
+            value="${prev.comment||''}" oninput="saveField('${p.id}','comment',this.value)">
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('cat-scroll').scrollTop = 0;
+}
+
+function setAns(pid, key, val, btn, cls, parentClass) {
+  answers[pid] = answers[pid] || {};
+  answers[pid][key] = val;
+  btn.closest('.'+parentClass).querySelectorAll('button').forEach(b =>
+    b.classList.remove('sel-yes','sel-no','sel-maybe','sel-dark'));
+  btn.classList.add(cls);
+}
+function setPriceOp(pid, val, btn) {
+  answers[pid] = answers[pid] || {};
+  answers[pid].priceOp = val;
+  btn.closest('.price-opts').querySelectorAll('button').forEach(b => b.classList.remove('sel-dark'));
+  btn.classList.add('sel-dark');
+  // Show "quanto pagaria" only when price is perceived as expensive
+  const wtpBlock = document.getElementById('wtp-block-'+pid);
+  if (wtpBlock) wtpBlock.style.display = ['Caro','Muito caro'].includes(val) ? 'block' : 'none';
+  // Clear saved wtp if no longer relevant
+  if (!['Caro','Muito caro'].includes(val)) { answers[pid].wtp = ''; }
+}
+function toggleTag(pid, ev, btn) {
+  answers[pid] = answers[pid] || {};
+  answers[pid].events = answers[pid].events || [];
+  const i = answers[pid].events.indexOf(ev);
+  if (i >= 0) { answers[pid].events.splice(i,1); btn.classList.remove('sel'); }
+  else { answers[pid].events.push(ev); btn.classList.add('sel'); }
+}
+function saveField(pid, key, val) {
+  answers[pid] = answers[pid] || {};
+  answers[pid][key] = val;
+}
+
+function navigate(dir) {
+  if (dir === 1 && currentIdx === CATALOG.length-1) { finalize(); return; }
+  currentIdx = Math.max(0, Math.min(CATALOG.length-1, currentIdx+dir));
+  renderProduct();
+}
+
+async function finalize() {
+  const resp = { ...sessionMeta, answers: { ...answers } };
+  RESPONSES.push(resp);
+  save('responses', RESPONSES);
+  go('s-thanks');
+  sendToSheets(resp);
+}
+
+// ══════════════════════════════════════════════
+//  GOOGLE SHEETS
+// ══════════════════════════════════════════════
+async function sendToSheets(resp) {
+  const url = CONFIG.sheetsUrl;
+  if (!url || !url.startsWith('http')) return;
+  const rows = CATALOG.map(p => {
+    const a = resp.answers[p.id] || {};
+    return [
+      resp.date, resp.time, resp.name, resp.job, resp.age, resp.size||'', resp.city,
+      resp.segment, resp.lifestyle, resp.wantsNews, resp.whatsapp, resp.email,
+      p.name, a.buy||'', a.priceOp||'', a.wtp||'',
+      (a.events||[]).join('; '), a.comment||''
+    ];
+  });
+  try {
+    await fetch(url, {
+      method:'POST',
+      body: JSON.stringify({ rows }),
+      headers:{'Content-Type':'application/json'}
+    });
+  } catch(e) { console.log('Sheets error:', e); }
+}
+
+async function testSheetsUrl() {
+  const url = document.getElementById('cfg-sheets-url').value.trim();
+  if (!url) { showToast('Cole a URL primeiro'); return; }
+  showToast('Testando conexão...');
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    if (d.status === 'alive') showToast('✓ Conexão OK!');
+    else showToast('⚠ Resposta inesperada');
+  } catch { showToast('⚠ Erro de conexão. Verifique a URL.'); }
+}
+
+function copyCode() {
+  const code = document.getElementById('apps-script-code').innerText;
+  navigator.clipboard.writeText(code).then(() => showToast('Código copiado!')).catch(() => showToast('Selecione e copie manualmente'));
+}
+
+function saveUrlFromGuide() {
+  const url = document.getElementById('test-url-field').value.trim();
+  if (url) {
+    CONFIG.sheetsUrl = url;
+    save('config', CONFIG);
+    document.getElementById('cfg-sheets-url').value = url;
+    showToast('URL salva!');
+  }
+  go('s-admin');
+}
+
+// ══════════════════════════════════════════════
+//  WHATSAPP SHARE
+// ══════════════════════════════════════════════
+function shareWhatsapp() {
+  const msg = encodeURIComponent(
+    `✦ Acabei de participar da pesquisa de moda *Breno Donadio*! 👗\nConheça a coleção e compartilhe sua opinião também.`
+  );
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+}
+
+// ══════════════════════════════════════════════
+//  ADMIN PIN
+// ══════════════════════════════════════════════
+let pinInput = '';
+let pinAttempts = 0;
+const MAX_ATTEMPTS = 5;
+
+function pinPress(d) {
+  if (pinAttempts >= MAX_ATTEMPTS) return;
+  if (pinInput.length >= 4) return;
+  pinInput += d;
+  updateDots();
+  if (pinInput.length === 4) setTimeout(checkPin, 200);
+}
+function pinDel() { pinInput = pinInput.slice(0,-1); updateDots(); }
+function updateDots() {
+  for (let i=0;i<4;i++) {
+    const d = document.getElementById('d'+i);
+    d.classList.toggle('filled', i < pinInput.length);
+  }
+}
+function checkPin() {
+  if (pinInput === CONFIG.pin) {
+    pinInput = ''; updateDots();
+    document.getElementById('pin-error').textContent = '';
+    document.getElementById('pin-attempts').textContent = '';
+    pinAttempts = 0;
+    go('s-admin');
+  } else {
+    pinAttempts++;
+    pinInput = ''; updateDots();
+    const rem = MAX_ATTEMPTS - pinAttempts;
+    document.getElementById('pin-error').textContent = 'PIN incorreto';
+    if (rem > 0) document.getElementById('pin-attempts').textContent = `${rem} tentativa(s) restante(s)`;
+    else {
+      document.getElementById('pin-attempts').textContent = 'Acesso bloqueado. Recarregue a página.';
+      document.querySelectorAll('.pin-btn').forEach(b => b.disabled = true);
+    }
+  }
+}
+function adminLogout() { go('s-home'); }
+
+// ══════════════════════════════════════════════
+//  ADMIN TABS
+// ══════════════════════════════════════════════
+function adminTab(t) {
+  document.querySelectorAll('.a-tab').forEach((b,i) => {
+    const tabs = ['config','products','results','responses'];
+    b.classList.toggle('active', tabs[i] === t);
+  });
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  if (t==='results') renderResultsTab();
+  if (t==='responses') renderResponsesTab();
+  if (t==='products') renderProductsList();
+}
+
+// ══════════════════════════════════════════════
+//  ADMIN CONFIG
+// ══════════════════════════════════════════════
+function loadAdminConfig() {
+  document.getElementById('cfg-start').value = CONFIG.start || '';
+  document.getElementById('cfg-end').value = CONFIG.end || '';
+  document.getElementById('cfg-sheets-url').value = CONFIG.sheetsUrl || '';
+}
+function saveDates() {
+  const s = document.getElementById('cfg-start').value;
+  const e = document.getElementById('cfg-end').value;
+  if (!s || !e) { showToast('Preencha início e término'); return; }
+  if (s > e) { showToast('Data de início deve ser antes do término'); return; }
+  CONFIG.start = s; CONFIG.end = e;
+  save('config', CONFIG);
+  updateHomeDates();
+  showToast('✓ Período publicado! Aparece na tela inicial.');
+}
+function saveConfig() {
+  const pinOld = document.getElementById('cfg-pin-old').value;
+  const pinNew = document.getElementById('cfg-pin-new').value;
+  if (pinNew) {
+    if (pinOld !== CONFIG.pin) { showToast('PIN atual incorreto'); return; }
+    if (!/^\d{4}$/.test(pinNew)) { showToast('Novo PIN deve ter 4 dígitos'); return; }
+    CONFIG.pin = pinNew;
+  }
+  CONFIG.start = document.getElementById('cfg-start').value;
+  CONFIG.end = document.getElementById('cfg-end').value;
+  CONFIG.sheetsUrl = document.getElementById('cfg-sheets-url').value.trim();
+  save('config', CONFIG);
+  document.getElementById('cfg-pin-old').value = '';
+  document.getElementById('cfg-pin-new').value = '';
+  showToast('Configurações salvas!');
+  updateHomeDates();
+}
+function clearAllData() {
+  if (!confirm('Apagar TODOS os dados de pesquisa? Esta ação não pode ser desfeita.')) return;
+  RESPONSES = [];
+  save('responses', RESPONSES);
+  renderResultsTab();
+  renderResponsesTab();
+  showToast('Dados apagados');
+}
+
+// ══════════════════════════════════════════════
+//  ADMIN PRODUCTS
+// ══════════════════════════════════════════════
+function renderProductsList() {
+  document.getElementById('products-list').innerHTML = CATALOG.map((p,i) => `
+    <div class="product-list-item">
+      <div class="pli-emoji" style="${p.photo ? `width:48px;height:48px;border-radius:2px;background:url('${p.photo}') center/cover no-repeat;font-size:0` : ''}">${p.photo ? '' : p.emoji}</div>
+      <div class="pli-info">
+        <div class="pli-name">${p.name}</div>
+        <div class="pli-price">${p.category} · R$ ${p.price.toLocaleString('pt-BR')}</div>
+      </div>
+      <div class="pli-actions">
+        <button class="icon-btn" onclick="openProductModal(${i})">✏️</button>
+        <button class="icon-btn del" onclick="deleteProduct(${i})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+function handlePhotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    const preview = document.getElementById('photo-preview');
+    const placeholder = document.getElementById('photo-placeholder');
+    const changeBtn = document.getElementById('photo-change-btn');
+    preview.src = dataUrl;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    changeBtn.style.display = 'block';
+    document.getElementById('photo-upload-area').dataset.photo = dataUrl;
+    // Remove dashed border when photo is set
+    document.getElementById('photo-upload-area').style.border = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetPhotoUpload(photoUrl) {
+  const preview = document.getElementById('photo-preview');
+  const placeholder = document.getElementById('photo-placeholder');
+  const changeBtn = document.getElementById('photo-change-btn');
+  const area = document.getElementById('photo-upload-area');
+  if (photoUrl) {
+    preview.src = photoUrl;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    changeBtn.style.display = 'block';
+    area.style.border = 'none';
+    area.dataset.photo = photoUrl;
+  } else {
+    preview.src = '';
+    preview.style.display = 'none';
+    placeholder.style.display = 'flex';
+    changeBtn.style.display = 'none';
+    area.style.border = '2px dashed var(--mist)';
+    area.dataset.photo = '';
+  }
+  document.getElementById('m-photo-input').value = '';
+}
+
+function openProductModal(idx) {
+  document.getElementById('product-modal').classList.add('open');
+  if (idx === null) {
+    document.getElementById('modal-title').textContent = 'Nova Peça';
+    document.getElementById('modal-pid').value = '';
+    ['m-name','m-emoji','m-desc','m-price'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('m-category').value = 'Vestidos';
+    resetPhotoUpload(null);
+  } else {
+    const p = CATALOG[idx];
+    document.getElementById('modal-title').textContent = 'Editar Peça';
+    document.getElementById('modal-pid').value = idx;
+    document.getElementById('m-name').value = p.name;
+    document.getElementById('m-category').value = p.category;
+    document.getElementById('m-emoji').value = p.emoji;
+    document.getElementById('m-desc').value = p.desc;
+    document.getElementById('m-price').value = p.price;
+    resetPhotoUpload(p.photo || null);
+  }
+}
+function closeProductModal() { document.getElementById('product-modal').classList.remove('open'); }
+function saveProduct() {
+  const name = document.getElementById('m-name').value.trim();
+  const price = parseFloat(document.getElementById('m-price').value);
+  if (!name || !price) { showToast('Nome e preço são obrigatórios'); return; }
+  const photoData = document.getElementById('photo-upload-area').dataset.photo || '';
+  const product = {
+    id: 'p' + Date.now(),
+    name,
+    category: document.getElementById('m-category').value,
+    emoji: document.getElementById('m-emoji').value || '👗',
+    desc: document.getElementById('m-desc').value,
+    price,
+    photo: photoData
+  };
+  const idx = document.getElementById('modal-pid').value;
+  if (idx !== '') { CATALOG[parseInt(idx)] = { ...CATALOG[parseInt(idx)], ...product, id: CATALOG[parseInt(idx)].id }; }
+  else { CATALOG.push(product); }
+  save('catalog', CATALOG);
+  closeProductModal();
+  renderProductsList();
+  showToast('Peça salva!');
+}
+function deleteProduct(idx) {
+  if (!confirm(`Remover "${CATALOG[idx].name}" da pesquisa?`)) return;
+  CATALOG.splice(idx, 1);
+  save('catalog', CATALOG);
+  renderProductsList();
+  showToast('Peça removida');
+}
+
+// ══════════════════════════════════════════════
+//  ADMIN RESULTS
+// ══════════════════════════════════════════════
+function renderResultsTab() {
+  const segFilter = document.getElementById('filter-segment').value;
+  const cityFilter = document.getElementById('filter-city').value;
+
+  // Update city filter options
+  const cities = [...new Set(RESPONSES.map(r => r.city))].filter(Boolean);
+  const citySelect = document.getElementById('filter-city');
+  const curCity = citySelect.value;
+  citySelect.innerHTML = '<option value="">Todas as cidades</option>' + cities.map(c => `<option ${c===curCity?'selected':''}>${c}</option>`).join('');
+
+  const filtered = RESPONSES.filter(r =>
+    (!segFilter || r.segment === segFilter) &&
+    (!cityFilter || r.city === cityFilter));
+
+  const total = filtered.length;
+  const wantsNews = filtered.filter(r => r.wantsNews === 'Sim').length;
+
+  const productStats = {};
+  CATALOG.forEach(p => { productStats[p.id] = { yes:0, maybe:0, no:0, fair:0, expensive:0, events:{} }; });
+  filtered.forEach(r => {
+    CATALOG.forEach(p => {
+      const a = r.answers[p.id] || {};
+      if (a.buy === 'Sim, com certeza') productStats[p.id].yes++;
+      else if (a.buy === 'Talvez') productStats[p.id].maybe++;
+      else if (a.buy === 'Não compraria') productStats[p.id].no++;
+      if (['Justo','Barato'].includes(a.priceOp)) productStats[p.id].fair++;
+      if (['Muito caro','Caro'].includes(a.priceOp)) productStats[p.id].expensive++;
+      if (a.events) a.events.forEach(ev => { productStats[p.id].events[ev] = (productStats[p.id].events[ev]||0)+1; });
+    });
+  });
+
+  const productHtml = CATALOG.map(p => {
+    const s = productStats[p.id];
+    const yP = total ? Math.round(s.yes/total*100) : 0;
+    const mP = total ? Math.round(s.maybe/total*100) : 0;
+    const fP = total ? Math.round(s.fair/total*100) : 0;
+    const lvl = yP >= 60 ? 'hi' : yP >= 30 ? 'md' : 'lo';
+    const lbl = yP >= 60 ? 'Alto' : yP >= 30 ? 'Médio' : 'Baixo';
+    const topEvents = Object.entries(s.events).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k])=>k).join(', ')||'—';
+    return `<div class="res-product">
+      <div class="res-prod-name">${p.emoji} ${p.name} <span class="interest-pill int-${lvl}">${lbl}</span></div>
+      <div class="mini-bar-row"><div class="mbl"><span>Compraria</span><span>${yP}%</span></div><div class="mb"><div class="mbf" style="width:${yP}%;background:#4a7a5a"></div></div></div>
+      <div class="mini-bar-row"><div class="mbl"><span>Talvez</span><span>${mP}%</span></div><div class="mb"><div class="mbf" style="width:${mP}%;background:var(--amber)"></div></div></div>
+      <div class="mini-bar-row"><div class="mbl"><span>Preço justo/barato</span><span>${fP}%</span></div><div class="mb"><div class="mbf" style="width:${fP}%;background:var(--terracotta)"></div></div></div>
+      <p style="font-size:10px;color:var(--stone);margin-top:8px"><strong>Ocasiões principais:</strong> ${topEvents}</p>
+    </div>`;
+  }).join('');
+
+  document.getElementById('results-tab-body').innerHTML = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-lbl">Entrevistadas</div></div>
+      <div class="stat-card"><div class="stat-num">${wantsNews}</div><div class="stat-lbl">Quer Novidades</div></div>
+    </div>
+    <div class="res-section-title">Desempenho por Peça</div>
+    ${total > 0 ? productHtml : '<p style="padding:20px;color:var(--stone);font-size:13px;text-align:center">Nenhuma resposta neste filtro.</p>'}
+    <div style="padding:12px">
+      <button class="export-btn" style="width:100%;padding:14px;font-size:11px;letter-spacing:2px" onclick="exportCSV()">⬇ Exportar CSV Completo</button>
+    </div>
+    <div style="height:20px"></div>`;
+}
+
+// ══════════════════════════════════════════════
+//  ADMIN RESPONSES
+// ══════════════════════════════════════════════
+function renderResponsesTab() {
+  const q = (document.getElementById('search-resp').value||'').toLowerCase();
+  const filtered = RESPONSES.filter(r =>
+    !q || r.name.toLowerCase().includes(q) || r.city.toLowerCase().includes(q) || r.job.toLowerCase().includes(q));
+
+  if (!filtered.length) {
+    document.getElementById('responses-tab-body').innerHTML = '<p style="padding:20px;color:var(--stone);font-size:13px;text-align:center">Nenhuma resposta encontrada.</p>';
+    return;
+  }
+  document.getElementById('responses-tab-body').innerHTML =
+    '<div style="padding:12px 0">' +
+    filtered.map((r, fi) => {
+      const realIdx = RESPONSES.indexOf(r);
+      return `<div class="response-item">
+        <div class="ri-header">
+          <div>
+            <div class="ri-name">${r.name}</div>
+            <div class="ri-date">${r.date} às ${r.time}</div>
+          </div>
+          <button class="del-resp-btn" onclick="deleteResponse(${realIdx})">🗑</button>
+        </div>
+        <div class="ri-meta" style="margin-top:8px">
+          <span class="ri-badge">${r.job}</span>
+          <span class="ri-badge">${r.age}</span>
+          <span class="ri-badge">${r.city}</span>
+          <span class="ri-badge">${r.segment}</span>
+          ${r.wantsNews==='Sim' ? `<span class="ri-badge" style="background:#d4ead8;color:#2a5a3a">📬 Quer novidades</span>` : ''}
+        </div>
+        ${r.whatsapp ? `<div style="font-size:11px;color:var(--stone);margin-top:6px">📱 ${r.whatsapp} · ${r.email}</div>` : ''}
+      </div>`;
+    }).join('') + '</div>';
+}
+
+function deleteResponse(idx) {
+  if (!confirm('Apagar esta resposta?')) return;
+  RESPONSES.splice(idx, 1);
+  save('responses', RESPONSES);
+  renderResponsesTab();
+  renderResultsTab();
+  showToast('Resposta removida');
+}
+
+// ══════════════════════════════════════════════
+//  CSV EXPORT
+// ══════════════════════════════════════════════
+function exportCSV() {
+  if (!RESPONSES.length) { showToast('Sem dados para exportar'); return; }
+  const rows = [['Data','Hora','Nome','Profissão','Idade','Tamanho','Cidade','Segmento','Estilo','Quer Novidades','WhatsApp','Email','Peça','Compraria','Preço Opinião','Pagaria R$','Ocasiões','Comentário']];
+  RESPONSES.forEach(r => {
+    CATALOG.forEach(p => {
+      const a = r.answers[p.id] || {};
+      rows.push([r.date,r.time,r.name,r.job,r.age,r.size||'',r.city,r.segment,r.lifestyle,r.wantsNews,r.whatsapp||'',r.email||'',p.name,a.buy||'',a.priceOp||'',a.wtp||'',(a.events||[]).join('; '),a.comment||'']);
+    });
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='breno_donadio_pesquisa.csv';
+  a.click(); URL.revokeObjectURL(url);
+  showToast('CSV exportado!');
+}
+
+function newInterview() {
+  ['r-name','r-job','r-city','r-whatsapp','r-email','r-size'].forEach(id => document.getElementById(id).value='');
+  ['r-age','r-lifestyle','r-segment'].forEach(id => document.getElementById(id).value='');
+  ['cb1','cb2','cb-news'].forEach(id => { const el=document.getElementById(id); el.classList.remove('checked'); el.textContent=''; });
+  document.querySelectorAll('#r-size-opts .size-opt').forEach(b => b.classList.remove('sel-dark'));
+  document.getElementById('contact-fields').style.display='none';
+  go('s-lgpd');
+}
+
+// ══════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+updateHomeDates();
+</script>
+</body>
+</html>
