@@ -945,7 +945,9 @@ let CATALOG = load('catalog', [
   { id:'p6', name:'Trench Dália', category:'Casacos', emoji:'🍂', desc:'Trench coat em gabardine italiano. Transição perfeita entre casual e formal.', price:1100 }
 ]);
 
-let CONFIG = load('config', { start:'', end:'', pin: DEFAULT_PIN, sheetsUrl:'' });
+const SHEETS_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbx04u6bcQ8oEnxGTF2rtj5rQRV64xaeT_w8GdJMaAXv15hhSnqtot1tGPM06PybCAUzSw/exec';
+let CONFIG = load('config', { start:'', end:'', pin: DEFAULT_PIN, sheetsUrl: SHEETS_URL_DEFAULT });
+if (!CONFIG.sheetsUrl) { CONFIG.sheetsUrl = SHEETS_URL_DEFAULT; save('config', CONFIG); }
 let RESPONSES = load('responses', []);
 let sessionMeta = {};
 let answers = {};
@@ -1155,7 +1157,7 @@ async function finalize() {
 //  GOOGLE SHEETS
 // ══════════════════════════════════════════════
 async function sendToSheets(resp) {
-  const url = CONFIG.sheetsUrl;
+  const url = CONFIG.sheetsUrl || SHEETS_URL_DEFAULT;
   if (!url || !url.startsWith('http')) return;
   const rows = CATALOG.map(p => {
     const a = resp.answers[p.id] || {};
@@ -1169,9 +1171,11 @@ async function sendToSheets(resp) {
   try {
     await fetch(url, {
       method:'POST',
+      mode:'no-cors',
       body: JSON.stringify({ rows }),
       headers:{'Content-Type':'application/json'}
     });
+    console.log('Enviado para Sheets com sucesso');
   } catch(e) { console.log('Sheets error:', e); }
 }
 
